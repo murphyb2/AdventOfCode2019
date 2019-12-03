@@ -1,3 +1,5 @@
+# https://adventofcode.com/2019/day/1
+
 def FuelRequired(mass):
     total = 0
     for item in mass:
