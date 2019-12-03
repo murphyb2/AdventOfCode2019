@@ -1,12 +1,5 @@
 # https://adventofcode.com/2019/day/1
 
-def FuelRequired(mass):
-    total = 0
-    for item in mass:
-      total += item // 3 -2
-    
-    return total
-
 masses = [105311,
 117290,
 97762,
@@ -107,4 +100,31 @@ masses = [105311,
 112851,
 71564,
 145569]
-print(FuelRequired(masses))
+
+# Part 1
+
+def FuelRequired(mass):
+    total = 0
+    for item in mass:
+      total += item // 3 -2
+    
+    return total
+
+print(f"Part 1 - {FuelRequired(masses)}")
+
+#Part 2
+
+def RealFuelRequired(masses):
+  total = 0
+  for mass in masses:
+    remainder = mass
+    
+    while remainder > 0:
+      remainder = (remainder // 3) - 2
+      if remainder >= 0:
+        total += remainder
+
+  return total
+
+print(f"Part 2 - {RealFuelRequired(masses)}")
+
