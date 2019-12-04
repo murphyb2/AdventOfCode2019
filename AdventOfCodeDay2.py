@@ -1,6 +1,6 @@
 # https://adventofcode.com/2019/day/2
 
-intcode = [
+puzzleInput = [
   1,0,0,3,
   1,1,2,3,
   1,3,4,3,
@@ -45,38 +45,54 @@ intcode = [
   0]
 
 
-def ExecuteOpcodes(intcode):
-  
-  intcode[1] = 12
-  intcode[2] = 2
+def ExecuteOpcodes(memory, noun=0, verb=1):
+  memory[1] = noun
+  memory[2] = verb
 
   i = 0
-  while(i<len(intcode)):
-    opcode = intcode[i]
-    pos_one = intcode[i+1]
-    pos_two = intcode[i+2]
-    pos_three = intcode[i+3]
+  while(i<len(memory)):
+    opcode = memory[i]
+    pos_one = memory[i+1]
+    pos_two = memory[i+2]
+    pos_three = memory[i+3]
 
     if opcode == 99:
-      print(f"Opcode is 99. Exiting...")
+      #print(f"Opcode is 99. Exiting...")
       break
     elif opcode == 1:
-      intcode[pos_three] = intcode[pos_one] + intcode[pos_two]
-      print(f"Opcode is 1 for add.")
-      print(f"{intcode[pos_three]} = {intcode[pos_one]} + {intcode[pos_two]}")
+      memory[pos_three] = memory[pos_one] + memory[pos_two]
+      #print(f"Opcode is 1 for add.")
+      #print(f"{memory[pos_three]} = {memory[pos_one]} + {memory[pos_two]}")
     elif opcode == 2:
-      intcode[pos_three] = intcode[pos_one] * intcode[pos_two]
-      print(f"Opcode is 2 for multiply.")
-      print(f"{intcode[pos_three]} = {intcode[pos_one]} * {intcode[pos_two]}")
+      #print(f"pos_one- {pos_one} pos_two- {pos_two}, pos_three- {pos_three}")
+      memory[pos_three] = memory[pos_one] * memory[pos_two]
+      #print(f"Opcode is 2 for multiply.")
+      #print(f"{memory[pos_three]} = {memory[pos_one]} * {memory[pos_two]}")
 
     i += 4
   
-  print(f"Position 0 is {intcode[0]}")
+  return memory[0]
 
-# ExecuteOpcodes(intcode)
+#result = ExecuteOpcodes(puzzleInput)
+#print(result)
 
-def ExecuteOpcodesPart2(intcode):
-  instructionPointer = intcode[0]
-  memory = intcode
+def ExecuteOpcodesPart2():
+  target = 19690720
+  i = 0
+  j = 0
 
-  
+  memory = puzzleInput.copy()
+  for i in range(100):
+    for j in range(100):
+      print(f"i={i}, j={j}")
+      #print(memory)
+      if ExecuteOpcodes(memory, i, j) == target:
+        print("we found a match")
+        return (100 * i) + j
+      #intcode.clear()
+      memory = puzzleInput.copy()
+      
+
+print(ExecuteOpcodesPart2())
+
+
