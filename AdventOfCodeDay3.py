@@ -59,7 +59,44 @@ def CrossedWiresPart1():
   print(min(distances))
   return min(distances)
 
+def CrossedWiresPart2():
+  wireA = CreateLine(lineA)
+  wireB = CreateLine(lineB)
 
+  # Intersection of the two dictionaries
+  intersections = set(wireA).intersection(wireB)
+  
+  for intersection in intersections:
+    currentPos = Point(0,0)
+    wireASignal = 0
+    wireBSignal = 0
+
+    while currentPos.X < intersection[0] and currentPos.Y < intersection[1]:
+       for movement in input:
+        direction = movement[0]
+        distance = int(movement[1:])
+        
+        if direction == 'R':
+          while(distance and abs(currentPos.X) < abs(intersection[0])):
+            currentPos.X += 1
+            distance -= 1
+            wireASignal += 1
+        elif direction == 'L':
+          while(distance and abs(currentPos.X) < abs(intersection[0])):
+            currentPos.X -= 1 
+            distance -= 1
+            wireASignal += 1
+        elif direction == 'U':
+          while(distance and abs(currentPos.Y) < abs(intersection[0])):
+            currentPos.Y += 1
+            distance -= 1
+            wireASignal += 1
+        elif direction == 'D':
+          while(distance and abs(currentPos.Y) < abs(intersection[0])):
+            currentPos.Y -= 1 
+            distance -= 1
+            wireASignal += 1
   
   
 CrossedWiresPart1()
+CrossedWiresPart2()
